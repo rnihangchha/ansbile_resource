@@ -1,0 +1,39 @@
+---
+
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Update packages
+      tags: always
+      apt:
+        update_cache: yes
+      when: ansible_os_family in ["Ubuntu"]
+    
+    - name: Download web server apache
+      tags: apache,apache2,debian-distro
+      apt:
+        name: apache2
+      when: ansible_os_family in ["Ubuntu"]
+    
+    - name: Start Apache server 
+      tags: apache_start
+      service:
+        name: apache2
+        state: started
+        
+    - name: Copy static file to apache server
+      tags: copy
+      copy:
+        src: default_file.html
+        dest: /var/www/html/index.html
+        owner: root 
+        group: root 
+        mode: 0644
+      notify: Apache
+    
+  handlers:
+    - name: Apache
+      service:
+        name: apache2 
+        state: restarted

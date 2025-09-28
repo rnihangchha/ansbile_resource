@@ -1,0 +1,29 @@
+services:
+    debian1:
+      container_name: manage-node1
+      build:
+        target: deb1
+        context: .
+      tty: true
+      volumes: [/home/tanyu/DevOps/ansible:/home/debian]
+        
+      networks:
+        - vm
+    ubuntu:
+      container_name: manage-node2
+      build:
+        target: ubuntu
+        context: .
+      tty: true
+      networks:
+        - vm
+    debian2:
+      container_name: manage-node3
+      build:
+        target: deb2
+        context: .
+      tty: true
+      networks:
+        - vm
+networks:
+  vm:

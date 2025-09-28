@@ -1,0 +1,11 @@
+myhosts:
+  hosts:
+    ubuntu:
+      ansible_host: ubuntu 
+      ansible_user: ubuntu
+    debian:
+      ansible_host: debian2
+      ansible_user: debian
+    tanyu:
+      ansible_host: 172.17.0.1
+      ansbile_user: tanyu
